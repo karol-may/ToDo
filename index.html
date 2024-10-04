@@ -18,16 +18,17 @@
             <span class="navbar-brand mb-0 h1">todo-app</span>
         </nav>   
         <div class="d-flex justify-content-evenly m-5 w-100">
-            <ul class="list-group list-group w-25">
+            <ul id="todo" class="list-group list-group w-25">
                 <li class="list-group-item list-group-item-danger">todo</li>
-                <li class="list-group-item">B</li>
-                <li class="list-group-item">C</li>               
+                <li class="list-group-item">
+                    <span>Zrobić aplikację ToDo</span>
+                    <button class="btn btn-warning btn-sm">></button>
+                </li>             
             </ul>
-            <ul class="list-group list-group w-25">
-                <li class="list-group-item list-group-item-warning">in-progress</li>
-                <li class="list-group-item">B</li>              
+            <ul id="inprogress" class="list-group list-group w-25">
+                <li class="list-group-item list-group-item-warning">in-progress</li>          
             </ul>
-            <ul class="list-group list-group w-25">
+            <ul id="dope" class="list-group list-group w-25">
                 <li class="list-group-item list-group-item-success">done</li>             
             </ul>
         </div>
