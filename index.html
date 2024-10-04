@@ -24,34 +24,36 @@
         <div class="d-flex justify-content-evenly m-5 w-100">
             <ul id="todo" class="list-group list-group w-25">
                 <li class="list-group-item list-group-item-danger">todo</li>
+                <li class="list-group-item">Coś do zrobienia</li>
             </ul>
             <ul id="inprogress" class="list-group list-group w-25">
                 <li class="list-group-item list-group-item-warning">in-progress</li>
+                <li class="list-group-item">Coś robie</li>
             </ul>
             <ul id="done" class="list-group list-group w-25">
                 <li class="list-group-item list-group-item-success">done</li>             
+                <li class="list-group-item">Zrobilem</li>
             </ul>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-        let listaToDo = document.getElementById("todo");
-        let listaInProgress = document.getElementById("inprogress");
-        let listaDone = document.getElementById("done");
-
+        let mozliweEtapy = ["todo","inprogress","done"];
         
+        function dodajEventDoElementowListy(lista,listaDocelowa){
+            let elementyListy = document.querySelectorAll("#"+lista+" > .list-group-item");
+            elementyListy.forEach((elementListy,key)=>{
+                elementListy.addEventListener("click", (kliniecieElemntu)=>{
+                let elementyListyDocelowej = document.querySelector("#"+listaDocelowa);
+                    elementyListyDocelowej.appendChild(kliniecieElemntu.target)
+                    dodajEventDoElementowListy("inprogress","done");
+                })
+            });
+        }
 
+        dodajEventDoElementowListy("todo","inprogress");
+        dodajEventDoElementowListy("inprogress","done");
 
-
-        let elementyListyToDo = document.querySelectorAll("#todo > .list-group-item");
-        let elementyListyInProgress =  document.querySelectorAll("#inprogress > .list-group-item");
-        let elementyListyDone =  document.querySelectorAll("#done > .list-group-item");
-
-        elementyListyToDo.forEach((elementListyToDo,key)=>{
-            elementListyToDo.addEventListener("click", (kliniecieElemntuToDo)=>{
-                listaInProgress.appendChild(kliniecieElemntuToDo.target)
-            } )
-        });
 
 
     </script>
