@@ -16,6 +16,8 @@
         let inprogress = [];
         let done = [];
 
+        
+
     </script>
     <div class="container-fluid h-100 w-100">
         <nav class="navbar navbar-light bg-light">
@@ -24,35 +26,56 @@
         <div class="d-flex justify-content-evenly m-5 w-100">
             <ul id="todo" class="list-group list-group w-25">
                 <li class="list-group-item list-group-item-danger">todo</li>
-                <li class="list-group-item">Coś do zrobienia</li>
             </ul>
             <ul id="inprogress" class="list-group list-group w-25">
                 <li class="list-group-item list-group-item-warning">in-progress</li>
-                <li class="list-group-item">Coś robie</li>
             </ul>
             <ul id="done" class="list-group list-group w-25">
                 <li class="list-group-item list-group-item-success">done</li>             
-                <li class="list-group-item">Zrobilem</li>
             </ul>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
+
+        function pobierzDane(lista){
+            todo.forEach((el)=>{
+                let listaElementow = document.querySelector("#"+lista);
+
+                let dodanyElement = document.createElement("li");
+                dodanyElement.classList.add("list-group-item");
+                dodanyElement.innerText = el.subject;
+                listaElementow.appendChild(dodanyElement);
+            });
+        }
+        pobierzDane("todo");
+
+
         let mozliweEtapy = ["todo","inprogress","done"];
-        
-        function dodajEventDoElementowListy(lista,listaDocelowa){
+
+        function pobierzListeDocelowa(lista){
+            let idListy = mozliweEtapy.indexOf(lista);
+            let listaDocelowa = mozliweEtapy[idListy+1];
+            return listaDocelowa;
+        }
+
+        function dodajEventDoElementuListy(elementListy,lista){
+            elementListy.addEventListener("click", (kliniecieElemntu)=>{
+            let elementyListy = document.querySelector("#"+lista);
+                elementyListy.appendChild(kliniecieElemntu.target)
+                dodajEventDoElementuListy(elementListy,pobierzListeDocelowa(lista))
+            })
+        }
+
+        function dodajEventDoElementowListy(lista){    
             let elementyListy = document.querySelectorAll("#"+lista+" > .list-group-item");
             elementyListy.forEach((elementListy,key)=>{
-                elementListy.addEventListener("click", (kliniecieElemntu)=>{
-                let elementyListyDocelowej = document.querySelector("#"+listaDocelowa);
-                    elementyListyDocelowej.appendChild(kliniecieElemntu.target)
-                    dodajEventDoElementowListy("inprogress","done");
-                })
+                dodajEventDoElementuListy(elementListy,pobierzListeDocelowa(lista))  
             });
         }
 
-        dodajEventDoElementowListy("todo","inprogress");
-        dodajEventDoElementowListy("inprogress","done");
+        dodajEventDoElementowListy("todo");
+        dodajEventDoElementowListy("inprogress");
 
 
 
